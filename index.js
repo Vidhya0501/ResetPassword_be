@@ -1,6 +1,7 @@
-import express from 'express'//ES Module Import add "type": "module" in package.json
+import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 import AppRoutes from './src/routes/index.js'
 
@@ -8,10 +9,17 @@ import AppRoutes from './src/routes/index.js'
 dotenv.config()
 const PORT=process.env.PORT
 const app=express()
+app.use(cors({
+    origin: ["http://localhost:5173"],
+    methods: ["POST"],
+    credentials: true
+}
+    
+))
 app.use(express.json())
-app.use(cors())
+app.use(cookieParser)
 
-app.use('/',AppRoutes)
+app.use('/account',AppRoutes)
 
 
 
